@@ -1,0 +1,269 @@
+// Variables
+$primary-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  Oxygen, Ubuntu, Cantarell;
+$transition-speed: 0.3s;
+
+// Colors
+$blick: rgb(226, 0, 0);
+$gray: #f7f7f7;
+$gray-hr: #c9c9c9;
+$gray-hr-light: #dedede;
+
+
+// Breakpoints
+$mobile: 400px;
+
+#app 
+{
+   width: 100%;
+   max-width: 632px;
+   padding: 20px 20px 40px 20px;
+   //height: 330px;
+   background: $gray;
+
+   @media (max-width: 400px) {
+      padding: 10px 10px 40px 10px;
+   }
+}
+
+// #app,
+// #calendar {
+//   max-width: 632px;
+//   //padding: 20px 20px 40px 20px;
+//   //background: $gray;
+//   border-top: 1px solid $gray-hr;
+//   border-bottom: 1px solid $gray-hr;
+
+//   @media (max-width: $mobile) {
+//     padding: 10px;
+//     max-width: 100%;
+//   }
+
+//   .event-date {
+//     border: 1px solid $gray-hr;
+//     line-height: 0;
+
+//     .event-date-day {
+//       line-height: 1;
+//       top: 3px;
+//     }
+
+//     .event-date-month {
+//       line-height: 1;
+//       bottom: 3px;
+//     }
+//   }
+
+//   ul {
+//     background: $gray;
+
+//     li {
+//       &:not(:last-child) {
+//         border-bottom: 1px solid $gray-hr-light;
+//       }
+
+//       // &:nth-child(3) {
+//       //   border-bottom: none;
+//       // }
+      
+//       // &:nth-child(n+4) {
+//       //   display: none;
+//       // }
+
+//       // &.is-expanded {
+//       //   &:nth-child(3) {
+//       //     border-bottom: 1px solid $gray-hr-light;
+//       //   }
+        
+//       //   &:nth-child(n+4) {
+//       //     display: block;
+//       //   }
+//       // }
+//     }
+//   }
+// }
+
+// CUSTOM CLASSES
+.border-blick {
+  border-color: $blick;
+}
+
+
+
+
+// #app,
+// #calendar {
+//   max-width: 632px;
+//   //padding: 20px 20px 40px 20px;
+//   //background: $gray;
+//   border-top: 1px solid $gray-hr;
+//   border-bottom: 1px solid $gray-hr;
+
+//   @media (max-width: $mobile) {
+//     padding: 10px;
+//     max-width: 100%;
+//   }
+
+//   .event-date {
+//     border: 1px solid $gray-hr;
+//     line-height: 0;
+
+//     .event-date-day {
+//       line-height: 1;
+//       top: 3px;
+//     }
+
+//     .event-date-month {
+//       line-height: 1;
+//       bottom: 3px;
+//     }
+//   }
+
+//   ul {
+//     background: $gray;
+
+//     li {
+//       &:not(:last-child) {
+//         border-bottom: 1px solid $gray-hr-light;
+//       }
+
+//       // &:nth-child(3) {
+//       //   border-bottom: none;
+//       // }
+      
+//       // &:nth-child(n+4) {
+//       //   display: none;
+//       // }
+
+//       // &.is-expanded {
+//       //   &:nth-child(3) {
+//       //     border-bottom: 1px solid $gray-hr-light;
+//       //   }
+        
+//       //   &:nth-child(n+4) {
+//       //     display: block;
+//       //   }
+//       // }
+//     }
+//   }
+// }
+
+
+
+
+
+
+
+
+#answers {
+
+  .answer
+  {
+    margin-bottom: 3px;
+    
+
+    &:hover .bar
+    {
+      border: 2px solid $blick;
+      
+    }
+
+    &:last-child
+    {
+      margin-bottom: 0;
+    }
+
+
+    .bar 
+    {
+      //height: 50px;
+      border: 2px solid $gray;
+
+      span
+      {
+        background: $blick;
+        width: 0px;
+      }
+    }
+
+    .percent
+    {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: $gray;
+    }
+  }
+}
+
+#question.voted #answers .answer:hover .bar { border: 2px solid $gray; }
+    
+ 
+.overlay 
+{
+  .spinner {
+
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 3.8px solid;
+    border-color: #f7f7f7;
+    border-right-color: #da2219;
+    animation: spinner-d3wgkg 1.2s infinite linear;
+  }
+  
+  @keyframes spinner-d3wgkg {
+    to {
+       transform: rotate(1turn);
+    }
+  }
+}
+
+
+
+
+.question
+{
+    .label1
+    {
+        font-family: 'Inter';
+        font-size: 14px;
+        color: $blick;
+        
+    }
+
+    .label2
+    {
+        font-family: 'blickextrabold';
+        font-size: 19px;
+        color: black;
+    }
+
+    .label3
+    {
+        font-family: 'Inter';
+        font-size: 16px;
+        color: black;
+        padding-top: 13px;
+        padding-bottom: 13px;
+    }
+
+    .percent
+    {
+        font-family: 'blickextrabold';
+        font-size: 16px;
+        color: black;
+        opacity: 0;
+    }
+
+    #total-votes
+    {
+        opacity: 0;
+    }
+}
+
+.text-blick
+{
+    color: #E2271B;
+}

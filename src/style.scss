@@ -1,0 +1,21 @@
+// *{
+//     display: none;
+// }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import fonts */
+@import "./fonts.scss"; 
+
+/* Import custom SCSS */
+@import "./main.scss";   
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
