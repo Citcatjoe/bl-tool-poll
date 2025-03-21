@@ -7,6 +7,9 @@
 @tailwind utilities;
 
 /* Import fonts */
+@import "./vars.scss"; 
+
+/* Import fonts */
 @import "./fonts.scss"; 
 
 /* Import custom SCSS */

@@ -1,19 +1,7 @@
-// Variables
-$primary-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-  Oxygen, Ubuntu, Cantarell;
-$transition-speed: 0.3s;
-
-// Colors
-$blick: rgb(226, 0, 0);
-$gray: #f7f7f7;
-$gray-hr: #c9c9c9;
-$gray-hr-light: #dedede;
 
 
-// Breakpoints
-$mobile: 400px;
 
-#app 
+#app.question 
 {
    width: 100%;
    max-width: 632px;
@@ -24,182 +12,79 @@ $mobile: 400px;
    @media (max-width: 400px) {
       padding: 10px 10px 40px 10px;
    }
-}
 
-// #app,
-// #calendar {
-//   max-width: 632px;
-//   //padding: 20px 20px 40px 20px;
-//   //background: $gray;
-//   border-top: 1px solid $gray-hr;
-//   border-bottom: 1px solid $gray-hr;
+  #answers {
 
-//   @media (max-width: $mobile) {
-//     padding: 10px;
-//     max-width: 100%;
-//   }
-
-//   .event-date {
-//     border: 1px solid $gray-hr;
-//     line-height: 0;
-
-//     .event-date-day {
-//       line-height: 1;
-//       top: 3px;
-//     }
-
-//     .event-date-month {
-//       line-height: 1;
-//       bottom: 3px;
-//     }
-//   }
-
-//   ul {
-//     background: $gray;
-
-//     li {
-//       &:not(:last-child) {
-//         border-bottom: 1px solid $gray-hr-light;
-//       }
-
-//       // &:nth-child(3) {
-//       //   border-bottom: none;
-//       // }
+    .answer
+    {
+      margin-bottom: 3px;
       
-//       // &:nth-child(n+4) {
-//       //   display: none;
-//       // }
-
-//       // &.is-expanded {
-//       //   &:nth-child(3) {
-//       //     border-bottom: 1px solid $gray-hr-light;
-//       //   }
+  
+      &:hover .bar
+      {
+        border: 2px solid $blick;
         
-//       //   &:nth-child(n+4) {
-//       //     display: block;
-//       //   }
-//       // }
-//     }
-//   }
-// }
+      }
+  
+      &:last-child
+      {
+        margin-bottom: 0;
+      }
+  
+  
+      .bar 
+      {
+        //height: 50px;
+        border: 2px solid $gray;
+  
+        .bar-gauge
+        {
+          background: $blick;
+          width: 0px;
+        }
+
+        .bar-gauge-bg
+        {
+          background: rgba(255, 255, 255, 0.65);
+        }
+      }
+  
+      .percent
+      {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+  
+        background: $gray;
+      }
+    }
+  }
+}
 
 // CUSTOM CLASSES
 .border-blick {
   border-color: $blick;
 }
 
-
-
-
-// #app,
-// #calendar {
-//   max-width: 632px;
-//   //padding: 20px 20px 40px 20px;
-//   //background: $gray;
-//   border-top: 1px solid $gray-hr;
-//   border-bottom: 1px solid $gray-hr;
-
-//   @media (max-width: $mobile) {
-//     padding: 10px;
-//     max-width: 100%;
-//   }
-
-//   .event-date {
-//     border: 1px solid $gray-hr;
-//     line-height: 0;
-
-//     .event-date-day {
-//       line-height: 1;
-//       top: 3px;
-//     }
-
-//     .event-date-month {
-//       line-height: 1;
-//       bottom: 3px;
-//     }
-//   }
-
-//   ul {
-//     background: $gray;
-
-//     li {
-//       &:not(:last-child) {
-//         border-bottom: 1px solid $gray-hr-light;
-//       }
-
-//       // &:nth-child(3) {
-//       //   border-bottom: none;
-//       // }
-      
-//       // &:nth-child(n+4) {
-//       //   display: none;
-//       // }
-
-//       // &.is-expanded {
-//       //   &:nth-child(3) {
-//       //     border-bottom: 1px solid $gray-hr-light;
-//       //   }
-        
-//       //   &:nth-child(n+4) {
-//       //     display: block;
-//       //   }
-//       // }
-//     }
-//   }
-// }
-
-
-
-
-
-
-
-
-#answers {
-
-  .answer
-  {
-    margin-bottom: 3px;
-    
-
-    &:hover .bar
-    {
-      border: 2px solid $blick;
-      
-    }
-
-    &:last-child
-    {
-      margin-bottom: 0;
-    }
-
-
-    .bar 
-    {
-      //height: 50px;
-      border: 2px solid $gray;
-
-      span
-      {
-        background: $blick;
-        width: 0px;
-      }
-    }
-
-    .percent
-    {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      background: $gray;
-    }
-  }
+.text-blick
+{
+    color: #E2271B;
 }
 
-#question.voted #answers .answer:hover .bar { border: 2px solid $gray; }
+
+
+
+
+
+
+
+
+
+
+
     
  
+// COMPONENTS
 .overlay 
 {
   .spinner {
@@ -223,47 +108,69 @@ $mobile: 400px;
 
 
 
-.question
+// STATES
+.question.voted #answers .answer:hover .bar { border: 2px solid $gray !important; cursor: default; }
+
+
+// .question.voted #answers .answer .bar
+// {
+//   display: none;
+// }
+
+html.socialMode
 {
-    .label1
-    {
-        font-family: 'Inter';
-        font-size: 14px;
-        color: $blick;
-        
-    }
 
-    .label2
-    {
-        font-family: 'blickextrabold';
-        font-size: 19px;
-        color: black;
-    }
+  background: black;
 
-    .label3
-    {
-        font-family: 'Inter';
-        font-size: 16px;
-        color: black;
-        padding-top: 13px;
-        padding-bottom: 13px;
-    }
 
-    .percent
-    {
-        font-family: 'blickextrabold';
-        font-size: 16px;
-        color: black;
-        opacity: 0;
-    }
+  #app 
+  {
+    background: rgba(50, 50, 50, 0.5);
+    max-width: 480px;
+  }
 
-    #total-votes
-    {
-        opacity: 0;
-    }
-}
+  .bar
+  {
+    background: transparent;
+    border: 0 !important;
 
-.text-blick
-{
-    color: #E2271B;
+    span { height: 6px;}
+  }
+
+  .label1
+  {
+    color: $blick-light;
+  }
+
+  .label2
+  {
+    color: white;
+  }
+
+  .label3
+  {
+    color: white;
+    padding-left: 0;
+    font-size: 19px;
+    padding-top: 9px;
+    padding-bottom: 26px;
+    line-height: 1.2;
+  }
+
+  .percent
+  {
+    color: white;
+    background: transparent !important;
+    opacity: 100 !important;
+    margin-top: -2px;
+    font-size: 19px;
+    padding-bottom: 13px;
+    right: 0;
+  }
+
+  #total-votes
+  {
+    color: white;
+    display: none;
+  }
 }

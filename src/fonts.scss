@@ -29,3 +29,43 @@
 .font-i {
   font-family: Inter;
 }
+
+.question
+{
+    .label1
+    {
+        font-family: 'Inter';
+        font-size: 14px;
+        color: $blick;
+        
+    }
+
+    .label2
+    {
+        font-family: 'blickextrabold';
+        font-size: 19px;
+        color: black;
+    }
+
+    .label3
+    {
+        font-family: 'blickregular';
+        font-size: 16px;
+        color: black;
+        padding-top: 13px;
+        padding-bottom: 13px;
+    }
+
+    .percent
+    {
+        font-family: 'blickextrabold';
+        font-size: 16px;
+        color: black;
+        opacity: 0;
+    }
+
+    #total-votes
+    {
+        opacity: 0;
+    }
+}

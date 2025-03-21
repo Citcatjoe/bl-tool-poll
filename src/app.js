@@ -17,7 +17,7 @@ import html2canvas from 'html2canvas';
 import './style.scss';
 import javascriptLogo from './javascript.svg';
 import viteLogo from '/vite.svg';
-
+import iconDownloadwhite from './img/icon-download-white.svg';
 
 
 const db = getFirestore();
@@ -34,8 +34,9 @@ const questionDoc = urlParams.get('questionDoc');
 let modeSocial = urlParams.get('modeSocial') === 'true' ? true : false;
 
 
-  console.log(questionDoc);
-  console.log(modeSocial);
+
+//   console.log(questionDoc);
+//   console.log(modeSocial);
 
 if (questionDoc) {
     docRef = questionDoc;
@@ -99,7 +100,9 @@ getQuestionOnce();
       
       html = `
               ${modeSocial ? `
-                <button id="download" class="absolute top-0 right-0">Download</button>
+                <button id="download" class="absolute top-2 right-2 bg-zinc-700 hover:bg-neutral-500 aspect-square h-8 rounded-md px-4" title="Télécharger les votes au format PNG">
+                <img src="${iconDownloadwhite}" alt="Télécharger les votes au format PNG" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          </button>
                 ` : ''} 
               <span class="block w-full label1 mb-2">Donnez votre avis!</span>
               <span class="block antialiased w-full label2 mb-4">${question.questionTxt}</span>
@@ -109,7 +112,13 @@ getQuestionOnce();
           html = html + `
                   <li answer-id="answer${index}" class="answer flex gap-x-2 relative mb-0 cursor-pointer">
                       <span class="relative block bar flex-1 item-center bg-white rounded-md">
-                          <span class="absolute left-0 block h-1 bottom-0 rounded-full"></span>
+
+
+                      ${modeSocial ? `
+                        <span class="absolute bar-gauge-bg left-0 right-0 block h-1 bottom-0 rounded-full"></span>
+                        ` : ''} 
+                            
+                          <span class="absolute bar-gauge left-0 block h-1 bottom-0 rounded-full"></span>
                           <p class="label3 left-4 w-10/12 pl-4">${question.answers[index]}</p>
                       </span>
                       <span class="percent absolute right-4 top-1/2 -translate-y-1/2"><span class="percent-value">50</span>%</span>
@@ -121,10 +130,8 @@ getQuestionOnce();
       app.innerHTML += html;
 
       if (modeSocial) {
-        setTimeout(() => {
-            btnDownload = document.getElementById("download");
-          initDownload();
-        }, 1000);
+            
+        socialModeOn();
       }
   };
 
@@ -154,7 +161,7 @@ getQuestionOnce();
   // CLICK ANSWER LIST ITEM
   // ------------------------------------------------------------
   const answerListPressed = (event) => {
-    if (!app.classList.contains("voted")) {
+    if (!app.classList.contains("voted") && !modeSocial) {
       const closestLi = event.target.closest("li");
       if (!closestLi) return; // Exit if no li element found
       
@@ -242,26 +249,32 @@ getQuestionOnce();
       const $percent = document.querySelector(`li[answer-id="answer${key}"] .percent`);
       const percent = `${Math.round((counters[key] / totalVotes) * 100)}`
       const $percentVal = document.querySelector(`li[answer-id="answer${key}"] .percent .percent-value`);
-      const $bar = document.querySelector(`li[answer-id="answer${key}"] .bar span`);
+      const $barGauge = document.querySelector(`li[answer-id="answer${key}"] .bar .bar-gauge`);
       
     
       if (key === highestKey) {
         $percent.style.opacity = "1";
-        $bar.style.opacity = "1";
+        $barGauge.style.opacity = "1";
       } else {
-        $percent.style.opacity = "0.25";
-        $bar.style.opacity = "0.25";
+        if (modeSocial) {
+          
+          $percent.style.backgroundColor = "#FF8781";
+          $barGauge.style.backgroundColor = "#FF8781";
+        } else {
+            $percent.style.opacity = "0.25";
+            $barGauge.style.opacity = "0.25";
+        }
       }
       
       $percentVal.innerHTML = percent;
       
 
       
-      if ($bar.parentElement.parentElement.getAttribute("answer-id") === "answer0") {
-        barsTl.to($bar, 1, { width: percent + '%', ease: "none" });
+      if ($barGauge.parentElement.parentElement.getAttribute("answer-id") === "answer0") {
+        barsTl.to($barGauge, 1, { width: percent + '%', ease: "none" });
       }
       else {
-        barsTl.to($bar, 1, { width: percent + '%', ease: "none" }, "-=1");
+        barsTl.to($barGauge, 1, { width: percent + '%', ease: "none" }, "-=1");
       }
     });
 
@@ -318,12 +331,17 @@ getQuestionOnce();
   // DOWNLOAD BUTTON CLICK EVENT
   // ------------------------------------------------------------
 
-  function initDownload() {
+  function socialModeOn() {
   
+    // setTimeout(() => {
+      displayResults(question.counters);
+    // }, 2000);
 // setTimeout(() => {
 //  alert("test");
+    btnDownload = document.getElementById("download");
 
-
+    // app.classList.add("socialMode");
+    document.documentElement.classList.add("socialMode");
 
   btnDownload.addEventListener('click', () => {
     const answersElement = document.querySelector('#answers');
@@ -337,6 +355,9 @@ getQuestionOnce();
       link.click();
     });
   });
+
+  // Close the tab after download
+  window.close();
 
 // }, 2000);
 }
