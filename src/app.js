@@ -25,24 +25,32 @@ const collectionRef = "questions";
 const dbRef = collection(db, "questions");
 
 var docRef = "";
+let btnDownload = null;
+const answers = document.getElementById("answers");
 
 const urlParams = new URLSearchParams(window.location.search);
-  const questionDoc = urlParams.get('questionDoc');
+const questionDoc = urlParams.get('questionDoc');
+
+let modeSocial = urlParams.get('modeSocial') === 'true' ? true : false;
+
+
   console.log(questionDoc);
-  if (questionDoc) {
+  console.log(modeSocial);
+
+if (questionDoc) {
     docRef = questionDoc;
-    
-  }
-  else {
+
+}
+else {
     alert("No question found."); 
-  }
+}
 
 // ------------------------------------------------------------
 // GET DATA
 // ------------------------------------------------------------
 let question = {};
 let unsubscribe; // Declare a variable to store the unsubscribe function
-const btnDownload = document.getElementById("download"); 
+
 
 const getQuestionOnce = async () => {
     try {
@@ -86,8 +94,13 @@ getQuestionOnce();
   const showQuestion = (question) => {
       app.innerHTML = "";
       let html = "";
+
+      
       
       html = `
+              ${modeSocial ? `
+                <button id="download" class="absolute top-0 right-0">Download</button>
+                ` : ''} 
               <span class="block w-full label1 mb-2">Donnez votre avis!</span>
               <span class="block antialiased w-full label2 mb-4">${question.questionTxt}</span>
               <ul id="answers">`;             
@@ -106,6 +119,13 @@ getQuestionOnce();
 
       html = html + `</ul><span id="total-votes" class="absolute text-xs left-1/2 -translate-x-1/2 bottom-3"><span id="total-votes-val">100</span><span id="total-votes-txt">votes</span></span>`;
       app.innerHTML += html;
+
+      if (modeSocial) {
+        setTimeout(() => {
+            btnDownload = document.getElementById("download");
+          initDownload();
+        }, 1000);
+      }
   };
 
 
@@ -135,12 +155,13 @@ getQuestionOnce();
   // ------------------------------------------------------------
   const answerListPressed = (event) => {
     if (!app.classList.contains("voted")) {
-      const id = event.target.closest("li").getAttribute("answer-id").slice(-1);
+      const closestLi = event.target.closest("li");
+      if (!closestLi) return; // Exit if no li element found
+      
+      const id = closestLi.getAttribute("answer-id").slice(-1);
       updateCounter(id);
       setQuestionVoted();
-      
     }
-    
   };
   app.addEventListener("click", answerListPressed);
 
@@ -296,12 +317,28 @@ getQuestionOnce();
   // ------------------------------------------------------------
   // DOWNLOAD BUTTON CLICK EVENT
   // ------------------------------------------------------------
+
+  function initDownload() {
+  
+// setTimeout(() => {
+//  alert("test");
+
+
+
   btnDownload.addEventListener('click', () => {
     const answersElement = document.querySelector('#answers');
-    html2canvas(answersElement).then(canvas => {
+    html2canvas(answersElement, {
+      backgroundColor: null,
+      scale: 2
+    }).then(canvas => {
       const link = document.createElement('a');
       link.download = 'poll-results.png';
-      link.href = canvas.toDataURL();
+      link.href = canvas.toDataURL('image/png', 1.0);
       link.click();
     });
   });
+
+// }, 2000);
+}
+
+
